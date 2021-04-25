@@ -1,11 +1,10 @@
-import React from 'react';
+import React, {Component} from 'react';
 
 import "./app.css";
 
 import Header from '../header';
-import ItemList from "../item-list";
 import RandomPlanet from "../random-planet";
-import PersonDetails from "../person-details";
+import PeoplePage from "../people-page";
 
 //index.js - паттерн для более удобного импорта 
 
@@ -15,24 +14,38 @@ import PersonDetails from "../person-details";
 //4.Обрабатывать состояния загрузка и ошибка
 //!5.Разделять ответственность компонентов- логика и рендеринг
 
+class App extends Component {
+    state = {
+        showRandomPlanet : true,
+        
+        hasError: false
+    };
 
-const App = ()=>{
-    return (
-        <div className="app">
-            <Header/>
-            <RandomPlanet/>
+    
 
-            <div className="row mb2">
-                <div className="col-md-6">
-                    <ItemList/>
-                </div>
+    componentDidCatch(){
+        this.setState({
+            hasError: true
+        })
+    };
 
-                <div className="col-md-6">
-                    <PersonDetails/>
-                </div>
+    render(){
+
+        const {showRandomPlanet, hasError} = this.state;
+
+        if (hasError){
+            return <span>Something happened</span>
+        };
+
+        return (
+            <div className="app">
+                <Header/>
+                <RandomPlanet showRandomPlanet={showRandomPlanet}/>
+    
+                <PeoplePage/>
             </div>
-        </div>
-    )
-};
+        )
+    }
+}
 
 export default App;

@@ -5,6 +5,7 @@ import ErrorIndicator from "../error-indicator";
 
 import "./random-planet.css";
 
+//можно выносить опеределние state из конструктора
 //Удобно делать setState в отдельной ф-ции для улучщения читабельности кода (onPlanetLoaded)
 //удобно хранить весь объект данных в state, а потом в рендере делать его деструктуризацию
 //Для того,чтобы уместить спинер и остальной код компонента и не уродовать код, код компонента можно вынести приватно отдельно
@@ -24,8 +25,20 @@ export default class RandomPlanet extends Component{
             loading: true,
             error: false
         };
-        this.updatePlanet();
     }
+
+    componentDidMount(){
+        this.updatePlanet();
+        this.interval = setInterval(() => this.updatePlanet(), 2000)
+    }
+
+    componentDidUpdate(){
+    
+    };
+
+    componentWillUnmount(){
+        clearInterval(this.interval);
+    };
 
     updatePlanet(){
         const id = Math.floor(Math.random()*10) + 2;

@@ -1,5 +1,9 @@
 .item-list {
     margin-bottom: 1rem;
+    overflow: scroll;
+    overflow-x: hidden;
+    height: 20em;
+    
 }
 
 .item-list .list-group-item{
