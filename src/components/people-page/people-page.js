@@ -1,23 +1,12 @@
 import React, {Component} from "react";
-import PersonDetails from "../person-details";
+import ItemDetails, {Record} from "../item-details";
 import ItemList from "../item-list";
+import ErrorBoundry from "../error-boundry";
+import Row from "../row";
 import SwapiService from "../../services/swapi-service";
 
 import "./people-page.css";
 
-const Row = ({left, right }) => {
-    return (
-        <div className="row mb2">
-            <div className="col-md-6">
-                {left}
-            </div>
-    
-            <div className="col-md-6">
-                {right}
-            </div>
-        </div>
-    )
-}
 
 export default class PeoplePage extends Component {
 
@@ -25,7 +14,6 @@ export default class PeoplePage extends Component {
 
     state = {
         selectedPerson : null,
-        hasError: false
     };
 
     onPersonSelected = (id) =>{
@@ -34,29 +22,31 @@ export default class PeoplePage extends Component {
         })
     };
 
-    componentDidCatch(){
-        this.setState({
-            hasError: true
-        })
-    }
 
     render(){
 
-        const {selectedPerson, hasError} = this.state;
-
-        if (hasError){
-            return <span>Error</span>
-        };
+        const {selectedPerson} = this.state;
 
         const itemList = (
             <ItemList   onItemSelected={this.onPersonSelected} 
                         selectedItem={selectedPerson}
-                        getData={this.swapiService.getAllPeople}
-                        renderItem={({name, gender, birthYear}) => `${name} (${gender}, ${birthYear})`}/>
+                        getData={this.swapiService.getAllPeople}>
+                    
+                    {(i) => `${i.name} (${i.gender}, ${i.birthYear})`}
+
+            </ItemList>
         );
 
         const personDetails = (
-            <PersonDetails personId={selectedPerson}/>
+            <ErrorBoundry>
+                <ItemDetails itemId={selectedPerson}
+                             getData={this.swapiService.getPerson}
+                             getImageUrl={this.swapiService.getPersonImage}>
+                    <Record field="gender" label="Gender"/>
+                    <Record field="birthYear" label="Birth year"/>
+                    <Record field="eyeColor" label="Eye color"/>
+                </ItemDetails>
+            </ErrorBoundry>
         )
 
         return (

@@ -24,11 +24,11 @@ export default class ItemList extends Component {
     };
 
     renderItems = (items) => {
-        const {selectedItem, renderItem} = this.props;
+        const {selectedItem} = this.props;
 
         return items.map((item) => {
             const {id} = item;
-            const label = renderItem(item);
+            const label = this.props.children(item);
 
             return (
                 <li className={`list-group-item ${id == selectedItem ? "active":""}`}

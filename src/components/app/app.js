@@ -5,6 +5,7 @@ import "./app.css";
 import Header from '../header';
 import RandomPlanet from "../random-planet";
 import PeoplePage from "../people-page";
+import PlanetPage from "../planet-page";
 
 //index.js - паттерн для более удобного импорта 
 
@@ -43,6 +44,7 @@ class App extends Component {
                 <RandomPlanet showRandomPlanet={showRandomPlanet}/>
     
                 <PeoplePage/>
+                <PlanetPage/>
             </div>
         )
     }
