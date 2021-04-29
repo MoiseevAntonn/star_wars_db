@@ -1,5 +1,4 @@
 import React, {Component} from "react";
-import SwapiService from "../../services/swapi-service";
 import Spinner from "../spinner";
 import ErrorIndicator from "../error-indicator";
 
@@ -26,8 +25,6 @@ export {
 
 
 export default class ItemDetails extends Component{
-
-    swapiService = new SwapiService();
 
     state = {
         itemDetails : null,
@@ -121,7 +118,7 @@ const ItemDetailsView = ({itemDetails: {id, name}, image, records}) => {
                         {records}
                     </ul>
 
-                    <button class="btn btn-danger" 
+                    <button className="btn btn-danger" 
                             onClick={()=>{this.setState({hgj: this.state.asd.asd })}}>
                                 Throw Error
                     </button>

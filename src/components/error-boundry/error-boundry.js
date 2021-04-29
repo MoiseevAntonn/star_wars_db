@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import ErrorIndicator from "../error-indicator";
 
 import "./error-boundry.css";
 
@@ -18,7 +19,7 @@ export default class ErrorBoundry extends Component {
         const {hasError} = this.state;
 
         if (hasError){
-            return <span>Error</span>
+            return <ErrorIndicator/>
         }
 
         return this.props.children;

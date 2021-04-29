@@ -6,6 +6,10 @@ import Header from '../header';
 import RandomPlanet from "../random-planet";
 import PeoplePage from "../people-page";
 import PlanetPage from "../planet-page";
+import SwapiService from "../../services/swapi-service";
+
+import {SwapiServiceProvider} from "../swapi-service-context";
+import ErrorBoundry from '../error-boundry';
 
 //index.js - паттерн для более удобного импорта 
 
@@ -18,33 +22,26 @@ import PlanetPage from "../planet-page";
 class App extends Component {
     state = {
         showRandomPlanet : true,
-        
-        hasError: false
     };
 
-    
-
-    componentDidCatch(){
-        this.setState({
-            hasError: true
-        })
-    };
+    swapiService = new SwapiService();
 
     render(){
 
-        const {showRandomPlanet, hasError} = this.state;
-
-        if (hasError){
-            return <span>Something happened</span>
-        };
+        const {showRandomPlanet} = this.state;
 
         return (
+            
             <div className="app">
-                <Header/>
-                <RandomPlanet showRandomPlanet={showRandomPlanet}/>
-    
-                <PeoplePage/>
-                <PlanetPage/>
+                <ErrorBoundry>
+                    <SwapiServiceProvider value={this.swapiService}>
+                        <Header/>
+                        <RandomPlanet showRandomPlanet={showRandomPlanet}/>
+            
+                        <PeoplePage/>
+                        <PlanetPage/>
+                    </SwapiServiceProvider>
+                </ErrorBoundry>
             </div>
         )
     }
