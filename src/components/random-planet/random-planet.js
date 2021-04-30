@@ -1,7 +1,8 @@
 import React , {Component} from "react";
-import SwapiService from "../../services/swapi-service";
 import Spinner from "../spinner";
 import ErrorIndicator from "../error-indicator";
+
+import { withSwapiService } from "../hoc-helpers";
 
 import "./random-planet.css";
 
@@ -15,17 +16,13 @@ import "./random-planet.css";
 //Если делаем импорт картинки в переменную - в ней будет лежать url, который можно пропихнуть в image 
 
 
-export default class RandomPlanet extends Component{
+class RandomPlanet extends Component{
 
-    constructor(){
-        super();
-        this.swapiService = new SwapiService();
-        this.state = {
-            planet: {},
-            loading: true,
-            error: false
-        };
-    }
+    state = {
+        planet: {},
+        loading: true,
+        error: false
+    };
 
     componentDidMount(){
         this.updatePlanet();
@@ -43,8 +40,7 @@ export default class RandomPlanet extends Component{
     updatePlanet(){
         const id = Math.floor(Math.random()*10) + 2;
         //const id = 12000
-        this.swapiService
-            .getPlanet(id)
+        this.props.getData(id)
             .then(this.onPlanetLoaded)
             .catch(this.onError);
     };
@@ -108,4 +104,13 @@ const PlanetView = ({planet}) => {
                 </div>
         </React.Fragment>
     )
+};
+
+const mapMethodsToProps = (swapiService) => {
+    return {
+        getData: swapiService.getPlanet
+    }
 }
+
+
+export default withSwapiService(RandomPlanet, mapMethodsToProps);
