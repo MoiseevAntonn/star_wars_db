@@ -4,21 +4,21 @@ import {withSwapiService} from "../hoc-helpers";
 
 
 
-const PlanetDetails = ({itemId}) => {
+const PlanetDetails = (props) => {
     return (
-        <SwapiServiceConsumer>
-            {({getPlanet, getPlanetImage})=> {
-                return (
-                    <ItemDetails itemId={itemId}
-                     getImageUrl={getPlanetImage}
-                     getData={getPlanet}>
-                        <Record field="rotationPeriod" label="Rotation period"/>
-                        <Record field="diameter" label="Diameter"/>
-                </ItemDetails>
-                )
-            }}
-        </SwapiServiceConsumer>
+            <ItemDetails {...props}>
+                    <Record field="rotationPeriod" label="Rotation period"/>
+                    <Record field="diameter" label="Diameter"/>
+             </ItemDetails>
     )
 };
 
-export default PlanetDetails;
+const mapMethodsToProps = (swapiService) => {
+    return {
+        getData: swapiService.getPerson,
+        getImageUrl: swapiService.getPersonImage
+    }
+}
+
+
+export default withSwapiService(PlanetDetails, mapMethodsToProps);
