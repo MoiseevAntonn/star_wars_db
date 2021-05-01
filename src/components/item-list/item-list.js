@@ -41,14 +41,18 @@ const ItemList = ({data: items, selectedItem, onItemSelected, children}) => {
                     const label = children(item);
 
                     return (
-                        <li className={`list-group-item ${id == selectedItem ? "active":""}`}
+                        <li className={`list-group-item ${id === selectedItem ? "active":""}`}
                             key={id}
-                            onClick={()=> onItemSelected?.(id)}>{label}</li>
+                            onClick={()=> onItemSelected(id)}>{label}</li>
                     )
                 })}
             </ul>
         )
 };
+
+ItemList.defaultProps = {
+    onItemSelected: () => {}
+}
 
 export default ItemList;
 

@@ -3,40 +3,40 @@ import ErrorBoundry from "../error-boundry";
 import Row from "../row";
 
 
-import "./planet-page.css";
+//import "./planet-page.css";
 import { PlanetList, PlanetDetails } from "../sw-components";
 
 export default class PlanetPage extends Component {
 
     state = {
-        selectedPlanet : null,
+        selectedItem : null,
     };
 
-    onPlanetSelected = (id) =>{
+    onItemSelected = (id) =>{
         this.setState({
-            selectedPlanet : id
+            selectedItem : id
         })
     };
 
 
     render(){
 
-        const {selectedPlanet} = this.state;
+        const {selectedItem} = this.state;
 
         const itemList = (
-            <PlanetList   onItemSelected={this.onPlanetSelected} 
-                        selectedItem={selectedPlanet}/>
+            <PlanetList     onItemSelected={this.onItemSelected} 
+                            selectedItem={selectedItem}/>
         );
 
-        const planetDetails = (
+        const itemDetails = (
             <ErrorBoundry>
-                <PlanetDetails itemId={selectedPlanet}/>
+                <PlanetDetails itemId={selectedItem}/>
             </ErrorBoundry>
         )
 
         return (
             <Row left={itemList}
-                 right={planetDetails}/>
+                 right={itemDetails}/>
         )
     }
 }

@@ -64,7 +64,7 @@ class SwapiService {
     };
 
     getStarshipImage = ({id}) => {
-      return `${this._imageBase}/${id}.jpg`
+      return `${this._imageBase}/starships/${id}.jpg`
     };
 
     _extractId(item){
@@ -88,11 +88,11 @@ class SwapiService {
         name: spaceship.name,
         model: spaceship.model,
         manufacturer: spaceship.manufacturer,
-        costInCredits: spaceship.costInCredits,
+        costInCredits: spaceship.cost_in_credits,
         length: spaceship.length,
         crew: spaceship.crew,
         passengers: spaceship.passengers,
-        cargoCapacity: spaceship.cargoCapacity
+        cargoCapacity: spaceship.cargo_capacity
       }
     }
 

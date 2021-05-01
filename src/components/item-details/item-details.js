@@ -110,7 +110,8 @@ const ItemDetailsView = ({itemDetails: {id, name}, image, records}) => {
     return (
         <React.Fragment>
             <img className="item-image" 
-                     src={image}/>
+                     src={image}
+                     alt=""/>
 
                 <div className="card-body">
                     <h4>{name}</h4>

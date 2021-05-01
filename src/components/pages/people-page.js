@@ -3,41 +3,41 @@ import ErrorBoundry from "../error-boundry";
 import Row from "../row";
 import {PersonList, PersonDetails} from "../sw-components";
 
-import "./people-page.css";
+//import "./people-page.css";
 
 
 export default class PeoplePage extends Component {
 
     state = {
-        selectedPerson : null,
+        selectedItem : null,
     };
 
-    onPersonSelected = (id) =>{
+    onItemSelected = (id) =>{
         this.setState({
-            selectedPerson : id
+            selectedItem : id
         })
     };
 
 
     render(){
 
-        const {selectedPerson} = this.state;
+        const {selectedItem} = this.state;
 
         const itemList = (
             <PersonList   
-                onItemSelected={this.onPersonSelected} 
-                selectedItem={selectedPerson}/>
+                onItemSelected={this.onItemSelected} 
+                selectedItem={selectedItem}/>
         );
 
-        const personDetails = (
+        const itemDetails = (
             <ErrorBoundry>
-                <PersonDetails itemId={selectedPerson}/>
+                <PersonDetails itemId={selectedItem}/>
             </ErrorBoundry>
         )
 
         return (
             <Row left={itemList}
-                 right={personDetails}/>
+                 right={itemDetails}/>
         )
     }
 };
