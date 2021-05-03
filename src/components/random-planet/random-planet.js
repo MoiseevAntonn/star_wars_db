@@ -1,6 +1,7 @@
 import React , {Component} from "react";
 import Spinner from "../spinner";
 import ErrorIndicator from "../error-indicator";
+import PropTypes from "prop-types";
 
 import { withSwapiService } from "../hoc-helpers";
 
@@ -20,6 +21,10 @@ class RandomPlanet extends Component{
 
     static defaultProps = {
         updateInterval: 2000
+    };
+
+    static propTypes= {
+        updateInterval: PropTypes.number
     }
 
     state = {
